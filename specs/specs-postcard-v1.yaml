@@ -1,0 +1,404 @@
+openapi: 3.0.3
+info:
+  title: "Postcard shop ${VERSION_APP}"
+  description: This is a place where sellers and buyers meat each other
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080/v1
+tags:
+  - name: postcard
+    description: Сведения о наличии
+paths:
+  /admin/postcard/create:
+    post:
+      tags:
+        - admin
+      summary: Create postcard
+      operationId: postcardCreate
+      requestBody:
+        description: Request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostcardCreateRequest'
+        required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostcardCreateResponse'
+  /postcard/read:
+    post:
+      tags:
+        - postcard
+      summary: Read postcard
+      operationId: postcardRead
+      requestBody:
+        description: Request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostcardReadRequest'
+        required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostcardReadResponse'
+  /admin/postcard/update:
+    post:
+      tags:
+        - admin
+      summary: Update postcard
+      operationId: postcardUpdate
+      requestBody:
+        description: Request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostcardUpdateRequest'
+        required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostcardUpdateResponse'
+  /admin/postcard/delete:
+    post:
+      tags:
+        - admin
+      summary: Delete postcard
+      operationId: postcardDelete
+      requestBody:
+        description: Request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostcardDeleteRequest'
+        required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostcardDeleteResponse'
+  /postcard/search:
+    post:
+      tags:
+        - postcard
+      summary: Search postcard
+      operationId: postcardSearch
+      requestBody:
+        description: Request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostcardSearchRequest'
+        required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostcardSearchResponse'
+components:
+  schemas:
+
+    IRequest:
+      type: object
+      description: Базовый интерфейс для всех запросов
+      properties:
+        requestType:
+          type: string
+          description: Поле-дескриминатор для вычисления типа запроса
+          example: create
+      discriminator:
+        propertyName: requestType
+        mapping:
+          create: '#/components/schemas/PostcardCreateRequest'
+          read:   '#/components/schemas/PostcardReadRequest'
+          update: '#/components/schemas/PostcardUpdateRequest'
+          delete: '#/components/schemas/PostcardDeleteRequest'
+          search: '#/components/schemas/PostcardSearchRequest'
+
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        group:
+          type: string
+        field:
+          type: string
+        message:
+          type: string
+
+    ResponseResult:
+      type: string
+      enum:
+        - success
+        - error
+
+    IResponse:
+      type: object
+      description: Базовый интерфейс для всех ответов
+      properties:
+        responseType:
+          type: string
+          description: Поле-дескриминатор для вычисления типа запроса
+          example: create
+        result:
+          $ref: '#/components/schemas/ResponseResult'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+
+      discriminator:
+        propertyName: responseType
+        mapping:
+          create: '#/components/schemas/PostcardCreateResponse'
+          read:   '#/components/schemas/PostcardReadResponse'
+          update: '#/components/schemas/PostcardUpdateResponse'
+          delete: '#/components/schemas/PostcardDeleteResponse'
+          search: '#/components/schemas/PostcardSearchResponse'
+          init: '#/components/schemas/PostcardInitResponse'
+
+    UserId:
+      type: string
+      description: Идентификатор пользователя
+    PostcardId:
+      type: string
+      description: Идентификатор открытки
+
+    BasePostcard:
+      type: object
+      description: Объект описывает свойства, одинаковые для create и update
+      properties:
+        title:
+          type: string
+          description: Описание открытки
+        author:
+          type: array
+          uniqueItems: true
+          description: Список художников
+          items:
+            $ref: '#/components/schemas/Designer'
+        postcardEvent:
+          type: array
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/PostcardEvent'
+        price:
+          type: integer
+          description: Цена открытки
+
+    PostcardEvent:
+      type: string
+      description: 'Описание события к которому приурочена открытка'
+
+    Designer:
+      type: string
+      description: 'Художник'
+
+    PostcardInitResponse:
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
+
+    PostcardCreateObject:
+      allOf:
+        - $ref: '#/components/schemas/BasePostcard'
+
+    PostcardCreateRequest:
+      allOf:
+        - $ref: '#/components/schemas/IRequest'
+        - $ref: '#/components/schemas/PostcardRequestDebug'
+        - type: object
+          properties:
+            postcard:
+              $ref: '#/components/schemas/PostcardCreateObject'
+
+    PostcardReadObject:
+      allOf:
+        - type: object
+          properties:
+            id:
+              $ref: '#/components/schemas/PostcardId'
+
+    PostcardReadRequest:
+      allOf:
+        - $ref: '#/components/schemas/IRequest'
+        - $ref: '#/components/schemas/PostcardRequestDebug'
+        - type: object
+          properties:
+            postcard:
+              $ref: '#/components/schemas/PostcardReadObject'
+
+    PostcardUpdateObject:
+      allOf:
+        - $ref: '#/components/schemas/BasePostcard'
+        - type: object
+          properties:
+            id:
+              $ref: '#/components/schemas/PostcardId'
+
+    PostcardUpdateRequest:
+      allOf:
+        - $ref: '#/components/schemas/IRequest'
+        - $ref: '#/components/schemas/PostcardRequestDebug'
+        - type: object
+          properties:
+            postcard:
+              $ref: '#/components/schemas/PostcardUpdateObject'
+
+    PostcardDeleteObject:
+      allOf:
+        - type: object
+          properties:
+            id:
+              $ref: '#/components/schemas/PostcardId'
+
+    PostcardDeleteRequest:
+      allOf:
+        - $ref: '#/components/schemas/IRequest'
+        - $ref: '#/components/schemas/PostcardRequestDebug'
+        - type: object
+          properties:
+            postcard:
+              $ref: '#/components/schemas/PostcardDeleteObject'
+
+    postcardSearchFilter:
+      type: object
+      description: Набор фильтров для поиска
+      properties:
+        searchString:
+          type: string
+          description: Поисковая строка, которая будет искаться в описании
+        ownerId:
+          $ref: '#/components/schemas/UserId'
+
+    PostcardSearchRequest:
+      allOf:
+        - $ref: '#/components/schemas/IRequest'
+        - $ref: '#/components/schemas/PostcardRequestDebug'
+        - type: object
+          properties:
+            adFilter:
+              $ref: '#/components/schemas/postcardSearchFilter'
+
+    PostcardResponseObject:
+      allOf:
+        - $ref: '#/components/schemas/BasePostcard'
+        - type: object
+          description: Объект, который возвращается в ответе бэкенда
+          properties:
+            id:
+              $ref: '#/components/schemas/PostcardId'
+            ownerId:
+              $ref: '#/components/schemas/UserId'
+            permissions:
+              type: array
+              uniqueItems: true
+              items:
+                $ref: '#/components/schemas/PostcardPermissions'
+
+    PostcardPermissions:
+      type: string
+      description: Доступы клиента для операций над открытками
+      enum:
+        - read
+        - update
+        - delete
+        - makeVisiblePublic
+        - makeVisibleOwn
+        - makeVisibleGroup
+
+    PostcardResponseSingle:
+      allOf:
+        - type: object
+          description: Ответ с одним объектом открытки
+          properties:
+            postcard:
+              $ref: '#/components/schemas/PostcardResponseObject'
+
+    PostcardResponseMulti:
+      allOf:
+        - type: object
+          description: Список найденных откртыток
+          properties:
+            postcards:
+              type: array
+              items:
+                $ref: '#/components/schemas/PostcardResponseObject'
+
+    PostcardCreateResponse:
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/PostcardResponseSingle'
+
+    PostcardReadResponse:
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/PostcardResponseSingle'
+
+    PostcardUpdateResponse:
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/PostcardResponseSingle'
+
+    PostcardDeleteResponse:
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/PostcardResponseSingle'
+
+    PostcardSearchResponse:
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/PostcardResponseMulti'
+
+    # STUBS ======================
+    PostcardRequestDebugMode:
+      type: string
+      enum:
+        - prod
+        - test
+        - stub
+
+    PostcardRequestDebug:
+      type: object
+      properties:
+        debug:
+          $ref: '#/components/schemas/PostcardDebug'
+
+    PostcardDebug:
+      type: object
+      properties:
+        mode:
+          $ref: '#/components/schemas/PostcardRequestDebugMode'
+        stub:
+          $ref: '#/components/schemas/PostcardRequestDebugStubs'
+
+    PostcardRequestDebugStubs:
+      type: string
+      description: Перечисления всех стабов
+      enum:
+        - success
+        - notFound
+        - badId
+        - badTitle
+        - badAuthor
+        - badPrice
+        - cannotDelete
+        - badSearchString
+        - dbError

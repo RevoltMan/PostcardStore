@@ -1,0 +1,26 @@
+[versions]
+kotlin = "2.1.10"
+openapi-generator = "7.12.0"
+jackson = "2.18.3"
+kotlinx-datetime = "0.6.2"
+jUnitJupiterVersion = "5.13.4"
+junitPlatformLauncher = "1.9.1"
+
+# BASE
+jvm-compiler = "17"
+jvm-language = "17"
+
+[libraries]
+plugin-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+plugin-binaryCompatibilityValidator = "org.jetbrains.kotlinx:binary-compatibility-validator:0.13.2"
+jackson-kotlin = { module = "com.fasterxml.jackson.module:jackson-module-kotlin", version.ref = "jackson" }
+kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }
+
+jUnit-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "jUnitJupiterVersion" }
+jUnit-engine = {module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "jUnitJupiterVersion" }
+jUnit-platform = {module = "org.junit.platform:junit-platform-launcher", version.ref = "junitPlatformLauncher" }
+
+[plugins]
+kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+openapi-generator = { id = "org.openapi.generator", version.ref = "openapi-generator" }
