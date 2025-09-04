@@ -16,9 +16,8 @@ import ru.otus.otuskotlin.postcardshop.common.models.PsWorkMode
 import ru.otus.otuskotlin.postcardshop.common.stubs.PostcardStub
 import ru.otus.otuskotlin.postcardshop.common.stubs.PsStubs
 import ru.otus.otuskotlin.postcardshop.mappers.v1.fromTransport
-import ru.otus.otuskotlin.postcardshop.mappers.v1.toTransportAd
-import ru.otus.otuskotlin.postcardshop.mappers.v1.toTransportCreatePostcard
 import ru.otus.otuskotlin.postcardshop.mappers.v1.toTransportPostcard
+import ru.otus.otuskotlin.postcardshop.mappers.v1.toTransportCreatePostcard
 
 class MapperTest {
 
@@ -62,7 +61,7 @@ class MapperTest {
             state = PsState.RUNNING,
         )
 
-        val req = context.toTransportAd() as PostcardCreateResponse
+        val req = context.toTransportPostcard() as PostcardCreateResponse
 
         assertEquals(req.postcard, PostcardStub.get().toTransportPostcard())
         assertEquals(1, req.errors?.size)

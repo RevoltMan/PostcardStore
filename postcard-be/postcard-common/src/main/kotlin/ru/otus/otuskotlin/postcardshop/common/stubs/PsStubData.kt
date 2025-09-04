@@ -9,7 +9,7 @@ import ru.otus.otuskotlin.postcardshop.common.stubs.PsStubRose.PS_ROSE1
 object PsStubRose {
     val PS_ROSE1: Postcard
         get() = Postcard(
-            id = PostcardId("007"),
+            id = PostcardId("Бумбараш"),
             title = "Синяя роза",
             author = setOf("Калинина Светлана"),
             event = setOf("8 Марта", "Праздник роз"),
@@ -33,7 +33,7 @@ object PostcardStub {
     fun prepareResult(block: Postcard.() -> Unit): Postcard = get().apply(block)
 
     fun prepareSearchList(filter: String) = listOf(
-        postcardDemand("R-047-01", filter),
+        postcardDemand("Малевич", filter),
         postcardDemand("R-047-02", filter),
         postcardDemand("R-047-03", filter),
         postcardDemand("R-047-04", filter),

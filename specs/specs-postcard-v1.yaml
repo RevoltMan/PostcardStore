@@ -150,7 +150,7 @@ components:
         - success
         - error
 
-    IResponse:
+    Response:
       type: object
       description: Базовый интерфейс для всех ответов
       properties:
@@ -214,7 +214,7 @@ components:
 
     PostcardInitResponse:
       allOf:
-        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/Response'
 
     PostcardCreateObject:
       allOf:
@@ -344,27 +344,27 @@ components:
 
     PostcardCreateResponse:
       allOf:
-        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/Response'
         - $ref: '#/components/schemas/PostcardResponseSingle'
 
     PostcardReadResponse:
       allOf:
-        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/Response'
         - $ref: '#/components/schemas/PostcardResponseSingle'
 
     PostcardUpdateResponse:
       allOf:
-        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/Response'
         - $ref: '#/components/schemas/PostcardResponseSingle'
 
     PostcardDeleteResponse:
       allOf:
-        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/Response'
         - $ref: '#/components/schemas/PostcardResponseSingle'
 
     PostcardSearchResponse:
       allOf:
-        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/Response'
         - $ref: '#/components/schemas/PostcardResponseMulti'
 
     # STUBS ======================

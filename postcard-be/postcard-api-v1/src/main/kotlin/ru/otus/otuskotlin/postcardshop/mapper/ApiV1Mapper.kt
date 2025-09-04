@@ -3,7 +3,7 @@ package ru.otus.otuskotlin.postcardshop.mapper
 import com.fasterxml.jackson.databind.MapperFeature
 import com.fasterxml.jackson.databind.json.JsonMapper
 import ru.otus.otuskotlin.postcardshop.api.v1.models.IRequest
-import ru.otus.otuskotlin.postcardshop.api.v1.models.IResponse
+import ru.otus.otuskotlin.postcardshop.api.v1.models.Response
 
 val apiV1Mapper = JsonMapper.builder().run {
     enable(MapperFeature.USE_BASE_TYPE_AS_DEFAULT_IMPL)
@@ -18,8 +18,8 @@ fun <T : IRequest> apiV1RequestDeserialize(json: String): T =
     apiV1Mapper.readValue(json, IRequest::class.java) as T
 
 @Suppress("unused")
-fun apiV1ResponseSerialize(response: IResponse): String = apiV1Mapper.writeValueAsString(response)
+fun apiV1ResponseSerialize(response: Response): String = apiV1Mapper.writeValueAsString(response)
 
 @Suppress("UNCHECKED_CAST", "unused")
-fun <T : IResponse> apiV1ResponseDeserialize(json: String): T =
-    apiV1Mapper.readValue(json, IResponse::class.java) as T
+fun <T : Response> apiV1ResponseDeserialize(json: String): T =
+    apiV1Mapper.readValue(json, Response::class.java) as T
