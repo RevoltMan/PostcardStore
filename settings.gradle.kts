@@ -11,3 +11,9 @@ include("postcard-be:postcard-common")
 findProject(":postcard-be:postcard-common")?.name = "postcard-common"
 include("postcard-be:postcard-api-v1-mapper")
 findProject(":postcard-be:postcard-api-v1-mapper")?.name = "postcard-api-v1-mapper"
+include("postcard-be:postcard-app-ktor")
+findProject(":postcard-be:postcard-app-ktor")?.name = "postcard-app-ktor"
+include("postcard-be:postcard-biz")
+findProject(":postcard-be:postcard-biz")?.name = "postcard-biz"
+include("postcard-be:postcard-app-common")
+findProject(":postcard-be:postcard-app-common")?.name = "postcard-app-common"

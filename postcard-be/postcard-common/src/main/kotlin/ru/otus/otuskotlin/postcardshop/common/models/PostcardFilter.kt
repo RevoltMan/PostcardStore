@@ -5,4 +5,5 @@ data class PostcardFilter(
     var ownerId: PsUserId = PsUserId.NONE,
     var event: String = "",
     var author: String = "",
+    var price: Int = 0,
 )
