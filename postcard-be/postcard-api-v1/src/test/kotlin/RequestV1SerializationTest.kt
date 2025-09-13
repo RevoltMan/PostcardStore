@@ -2,7 +2,7 @@
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
-import ru.otus.otuskotlin.postcardshop.api.v1.models.IRequest
+import ru.otus.otuskotlin.postcardshop.api.v1.models.Request
 import ru.otus.otuskotlin.postcardshop.api.v1.models.PostcardCreateObject
 import ru.otus.otuskotlin.postcardshop.api.v1.models.PostcardCreateRequest
 import ru.otus.otuskotlin.postcardshop.api.v1.models.PostcardDebug
@@ -37,7 +37,7 @@ class RequestV1SerializationTest {
     @Test
     fun deserialize() {
         val json = apiV1Mapper.writeValueAsString(request)
-        val obj = apiV1Mapper.readValue(json, IRequest::class.java) as PostcardCreateRequest
+        val obj = apiV1Mapper.readValue(json, Request::class.java) as PostcardCreateRequest
 
         assertEquals(request, obj)
     }

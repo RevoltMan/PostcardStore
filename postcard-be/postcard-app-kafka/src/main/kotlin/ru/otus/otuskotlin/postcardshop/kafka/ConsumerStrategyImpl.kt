@@ -1,6 +1,6 @@
 package ru.otus.otuskotlin.postcardshop.kafka
 
-import ru.otus.otuskotlin.postcardshop.api.v1.models.IRequest
+import ru.otus.otuskotlin.postcardshop.api.v1.models.Request
 import ru.otus.otuskotlin.postcardshop.api.v1.models.Response
 import ru.otus.otuskotlin.postcardshop.common.PsContext
 import ru.otus.otuskotlin.postcardshop.mapper.apiV1RequestDeserialize
@@ -19,7 +19,7 @@ class ConsumerStrategyImpl : ConsumerStrategy {
     }
 
     override fun deserialize(value: String, target: PsContext) {
-        val request: IRequest = apiV1RequestDeserialize(value)
+        val request: Request = apiV1RequestDeserialize(value)
         target.fromTransport(request)
     }
 }

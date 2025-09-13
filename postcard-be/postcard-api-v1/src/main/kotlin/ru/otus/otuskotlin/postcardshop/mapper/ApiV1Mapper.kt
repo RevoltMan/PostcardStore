@@ -2,7 +2,7 @@ package ru.otus.otuskotlin.postcardshop.mapper
 
 import com.fasterxml.jackson.databind.MapperFeature
 import com.fasterxml.jackson.databind.json.JsonMapper
-import ru.otus.otuskotlin.postcardshop.api.v1.models.IRequest
+import ru.otus.otuskotlin.postcardshop.api.v1.models.Request
 import ru.otus.otuskotlin.postcardshop.api.v1.models.Response
 
 val apiV1Mapper = JsonMapper.builder().run {
@@ -11,11 +11,11 @@ val apiV1Mapper = JsonMapper.builder().run {
 }
 
 @Suppress("unused")
-fun apiV1RequestSerialize(request: IRequest): String = apiV1Mapper.writeValueAsString(request)
+fun apiV1RequestSerialize(request: Request): String = apiV1Mapper.writeValueAsString(request)
 
 @Suppress("UNCHECKED_CAST", "unused")
-fun <T : IRequest> apiV1RequestDeserialize(json: String): T =
-    apiV1Mapper.readValue(json, IRequest::class.java) as T
+fun <T : Request> apiV1RequestDeserialize(json: String): T =
+    apiV1Mapper.readValue(json, Request::class.java) as T
 
 @Suppress("unused")
 fun apiV1ResponseSerialize(response: Response): String = apiV1Mapper.writeValueAsString(response)

@@ -9,7 +9,7 @@ import io.ktor.http.*
 import io.ktor.serialization.jackson.*
 import io.ktor.server.testing.*
 import org.junit.jupiter.api.Test
-import ru.otus.otuskotlin.postcardshop.api.v1.models.IRequest
+import ru.otus.otuskotlin.postcardshop.api.v1.models.Request
 import ru.otus.otuskotlin.postcardshop.api.v1.models.PostcardCreateObject
 import ru.otus.otuskotlin.postcardshop.api.v1.models.PostcardCreateRequest
 import ru.otus.otuskotlin.postcardshop.api.v1.models.PostcardCreateResponse
@@ -119,7 +119,7 @@ class PostcardStubApiTest {
 
     private fun testApplication(
         func: String,
-        request: IRequest,
+        request: Request,
         function: suspend (HttpResponse) -> Unit,
     ): Unit = testApplication {
         application { module(PostcardAppSettingsImpl(corSettings = PsCorSettings())) }
