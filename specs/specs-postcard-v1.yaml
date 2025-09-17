@@ -115,7 +115,7 @@ paths:
 components:
   schemas:
 
-    IRequest:
+    Request:
       type: object
       description: Базовый интерфейс для всех запросов
       properties:
@@ -150,7 +150,7 @@ components:
         - success
         - error
 
-    IResponse:
+    Response:
       type: object
       description: Базовый интерфейс для всех ответов
       properties:
@@ -214,7 +214,7 @@ components:
 
     PostcardInitResponse:
       allOf:
-        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/Response'
 
     PostcardCreateObject:
       allOf:
@@ -222,7 +222,7 @@ components:
 
     PostcardCreateRequest:
       allOf:
-        - $ref: '#/components/schemas/IRequest'
+        - $ref: '#/components/schemas/Request'
         - $ref: '#/components/schemas/PostcardRequestDebug'
         - type: object
           properties:
@@ -238,7 +238,7 @@ components:
 
     PostcardReadRequest:
       allOf:
-        - $ref: '#/components/schemas/IRequest'
+        - $ref: '#/components/schemas/Request'
         - $ref: '#/components/schemas/PostcardRequestDebug'
         - type: object
           properties:
@@ -255,7 +255,7 @@ components:
 
     PostcardUpdateRequest:
       allOf:
-        - $ref: '#/components/schemas/IRequest'
+        - $ref: '#/components/schemas/Request'
         - $ref: '#/components/schemas/PostcardRequestDebug'
         - type: object
           properties:
@@ -271,7 +271,7 @@ components:
 
     PostcardDeleteRequest:
       allOf:
-        - $ref: '#/components/schemas/IRequest'
+        - $ref: '#/components/schemas/Request'
         - $ref: '#/components/schemas/PostcardRequestDebug'
         - type: object
           properties:
@@ -290,7 +290,7 @@ components:
 
     PostcardSearchRequest:
       allOf:
-        - $ref: '#/components/schemas/IRequest'
+        - $ref: '#/components/schemas/Request'
         - $ref: '#/components/schemas/PostcardRequestDebug'
         - type: object
           properties:
@@ -344,27 +344,27 @@ components:
 
     PostcardCreateResponse:
       allOf:
-        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/Response'
         - $ref: '#/components/schemas/PostcardResponseSingle'
 
     PostcardReadResponse:
       allOf:
-        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/Response'
         - $ref: '#/components/schemas/PostcardResponseSingle'
 
     PostcardUpdateResponse:
       allOf:
-        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/Response'
         - $ref: '#/components/schemas/PostcardResponseSingle'
 
     PostcardDeleteResponse:
       allOf:
-        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/Response'
         - $ref: '#/components/schemas/PostcardResponseSingle'
 
     PostcardSearchResponse:
       allOf:
-        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/Response'
         - $ref: '#/components/schemas/PostcardResponseMulti'
 
     # STUBS ======================

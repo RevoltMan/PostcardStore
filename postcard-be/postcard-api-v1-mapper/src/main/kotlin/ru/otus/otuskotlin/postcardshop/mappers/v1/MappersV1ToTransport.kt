@@ -1,6 +1,6 @@
 package ru.otus.otuskotlin.postcardshop.mappers.v1
 
-import ru.otus.otuskotlin.postcardshop.api.v1.models.IResponse
+import ru.otus.otuskotlin.postcardshop.api.v1.models.Response
 import ru.otus.otuskotlin.postcardshop.api.v1.models.PostcardCreateResponse
 import ru.otus.otuskotlin.postcardshop.api.v1.models.PostcardDeleteResponse
 import ru.otus.otuskotlin.postcardshop.api.v1.models.PostcardPermissions
@@ -19,7 +19,7 @@ import ru.otus.otuskotlin.postcardshop.common.models.PsError
 import ru.otus.otuskotlin.postcardshop.common.models.PsState
 import ru.otus.otuskotlin.postcardshop.common.models.PsUserId
 
-fun PsContext.toTransportAd(): IResponse = when (val cmd = command) {
+fun PsContext.toTransportPostcard(): Response = when (val cmd = command) {
     PsCommand.CREATE -> toTransportCreate()
     PsCommand.READ -> toTransportRead()
     PsCommand.UPDATE -> toTransportUpdate()
@@ -70,12 +70,12 @@ fun Postcard.toTransportPostcard(): PostcardResponseObject = PostcardResponseObj
     postcardEvent = event.takeIf { it.isNotEmpty() },
     price  = price,
     ownerId = ownerId.takeIf { it != PsUserId.NONE }?.asString(),
-    permissions = permissionsClient.toTransportAd(),
+    permissions = permissionsClient.toTransportPostcard(),
 )
 
 internal fun PostcardId.toTransportPostcard() = takeIf { it != PostcardId.NONE }?.asString()
 
-private fun Set<PostcardPermissionClient>.toTransportAd(): Set<PostcardPermissions>? = this
+private fun Set<PostcardPermissionClient>.toTransportPostcard(): Set<PostcardPermissions>? = this
     .map { it.toTransportPostcard() }
     .toSet()
     .takeIf { it.isNotEmpty() }

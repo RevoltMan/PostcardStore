@@ -1,6 +1,6 @@
 package ru.otus.otuskotlin.postcardshop.mappers.v1
 
-import ru.otus.otuskotlin.postcardshop.api.v1.models.IRequest
+import ru.otus.otuskotlin.postcardshop.api.v1.models.Request
 import ru.otus.otuskotlin.postcardshop.api.v1.models.PostcardCreateObject
 import ru.otus.otuskotlin.postcardshop.api.v1.models.PostcardCreateRequest
 import ru.otus.otuskotlin.postcardshop.api.v1.models.PostcardDebug
@@ -23,7 +23,7 @@ import ru.otus.otuskotlin.postcardshop.common.models.PsWorkMode
 import ru.otus.otuskotlin.postcardshop.common.stubs.PsStubs
 import ru.otus.otuskotlin.postcardshop.ru.otus.otuskotlin.postcardshop.mappers.v1.exception.UnknownRequestClass
 
-fun PsContext.fromTransport(request: IRequest) = when (request) {
+fun PsContext.fromTransport(request: Request) = when (request) {
     is PostcardCreateRequest -> fromTransport(request)
     is PostcardReadRequest -> fromTransport(request)
     is PostcardUpdateRequest -> fromTransport(request)
