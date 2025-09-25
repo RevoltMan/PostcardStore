@@ -7,7 +7,7 @@ data class Postcard (
     var event: Set<String> = mutableSetOf(),
     var price: Int = 0,
     var ownerId: PsUserId = PsUserId.NONE,
-    val permissionsClient: MutableSet<PostcardPermissionClient> = mutableSetOf()
+    var permissionsClient: MutableSet<PostcardPermissionClient> = mutableSetOf()
 ) {
     fun isEmpty() = this == NONE
 
