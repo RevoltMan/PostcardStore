@@ -1,7 +1,7 @@
 package ru.otus.otuskotlin.postcardshop.app.common
 
 import kotlinx.datetime.Clock
-import ru.otus.otuskotlin.postcardshop.app.common.helpers.asPostcardError
+import ru.otus.otuskotlin.postcardshop.common.helpers.asPostcardError
 import ru.otus.otuskotlin.postcardshop.common.PsContext
 import ru.otus.otuskotlin.postcardshop.common.logging.toLog
 import ru.otus.otuskotlin.postcardshop.common.models.PsCommand

@@ -9,7 +9,7 @@ import ru.otus.otuskotlin.postcardshop.common.stubs.PsStubRose.PS_ROSE1
 object PsStubRose {
     val PS_ROSE1: Postcard
         get() = Postcard(
-            id = PostcardId("Бумбараш"),
+            id = PostcardId("ZXY-873"),
             title = "Синяя роза",
             author = setOf("Калинина Светлана"),
             event = setOf("8 Марта", "Праздник роз"),

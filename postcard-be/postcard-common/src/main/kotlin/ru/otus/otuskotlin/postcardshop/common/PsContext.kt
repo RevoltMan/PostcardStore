@@ -26,4 +26,5 @@ data class PsContext(
 
     var postcardResponse: Postcard = Postcard(),
     var postcardsResponse: MutableList<Postcard> = mutableListOf(),
+    var corSettings: PsCorSettings = PsCorSettings(),
 )
