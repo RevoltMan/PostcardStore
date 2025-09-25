@@ -65,7 +65,8 @@ class KafkaControllerTest {
         val message = producer.history().first()
         val result = apiV1ResponseDeserialize<PostcardCreateResponse>(message.value())
         assertEquals(outputTopic, message.topic())
-        assertEquals("Синяя роза", result.postcard?.title)
+        assertEquals("Попугай", result.postcard?.title)
+        assertEquals(2500, result.postcard?.price)
     }
 
     companion object {
