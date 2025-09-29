@@ -19,5 +19,13 @@ dependencies {
 
     api(libs.logger.fluentd)
     api(libs.logback.appenders)
+
+    implementation(kotlin("test-common"))
+    implementation(kotlin("test-annotations-common"))
+    implementation(libs.coroutines.test)
+
+    testImplementation(libs.jUnit.api)
+    testImplementation(libs.jUnit.engine)
+    testImplementation(libs.jUnit.platform)
 }
 
