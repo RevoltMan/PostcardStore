@@ -9,7 +9,6 @@ import io.ktor.http.*
 import io.ktor.serialization.jackson.*
 import io.ktor.server.testing.*
 import org.junit.jupiter.api.Test
-import ru.otus.otuskotlin.postcardshop.api.v1.models.Request
 import ru.otus.otuskotlin.postcardshop.api.v1.models.PostcardCreateObject
 import ru.otus.otuskotlin.postcardshop.api.v1.models.PostcardCreateRequest
 import ru.otus.otuskotlin.postcardshop.api.v1.models.PostcardCreateResponse
@@ -28,6 +27,7 @@ import ru.otus.otuskotlin.postcardshop.api.v1.models.PostcardSearchResponse
 import ru.otus.otuskotlin.postcardshop.api.v1.models.PostcardUpdateObject
 import ru.otus.otuskotlin.postcardshop.api.v1.models.PostcardUpdateRequest
 import ru.otus.otuskotlin.postcardshop.api.v1.models.PostcardUpdateResponse
+import ru.otus.otuskotlin.postcardshop.api.v1.models.Request
 import ru.otus.otuskotlin.postcardshop.common.PsCorSettings
 import ru.otus.otuskotlin.postcardshop.ktor.PostcardAppSettingsImpl
 import ru.otus.otuskotlin.postcardshop.ktor.module
@@ -53,20 +53,20 @@ class PostcardStubApiTest {
     ) { response ->
         val responseObj = response.body<PostcardCreateResponse>()
         assertEquals(200, response.status.value)
-        assertEquals("Бумбараш", responseObj.postcard?.id)
+        assertEquals("ZXY-873", responseObj.postcard?.id)
     }
 
     @Test
     fun `success read`() = testApplication(
         func = "postcard/read",
         request = PostcardReadRequest(
-            postcard = PostcardReadObject("Бумбараш"),
+            postcard = PostcardReadObject("ZXY-873"),
             debug = successDebug
         ),
     ) { response ->
         val responseObj = response.body<PostcardReadResponse>()
         assertEquals(200, response.status.value)
-        assertEquals("Бумбараш", responseObj.postcard?.id)
+        assertEquals("ZXY-873", responseObj.postcard?.id)
     }
 
     @Test
@@ -74,7 +74,7 @@ class PostcardStubApiTest {
         func = "admin/update",
         request = PostcardUpdateRequest(
             postcard = PostcardUpdateObject(
-                id = "Бумбараш",
+                id = "ZXY-873",
                 title = "Восход",
                 author = setOf("Куприянов"),
                 postcardEvent = setOf("Праздник"),
@@ -85,8 +85,8 @@ class PostcardStubApiTest {
     ) { response ->
         val responseObj = response.body<PostcardUpdateResponse>()
         assertEquals(200, response.status.value)
-        assertEquals("Бумбараш", responseObj.postcard?.id)
-        assertEquals("Синяя роза", responseObj.postcard?.title)
+        assertEquals("ZXY-873", responseObj.postcard?.id)
+        assertEquals("Восход", responseObj.postcard?.title)
     }
 
     @Test
@@ -94,14 +94,14 @@ class PostcardStubApiTest {
         func = "admin/delete",
         request = PostcardDeleteRequest(
             postcard = PostcardDeleteObject(
-                id = "Колыбель",
+                id = "ZXY-873",
             ),
             debug = successDebug
         ),
     ) { response ->
         val responseObj = response.body<PostcardDeleteResponse>()
         assertEquals(200, response.status.value)
-        assertEquals("Бумбараш", responseObj.postcard?.id)
+        assertEquals("ZXY-873", responseObj.postcard?.id)
     }
 
     @Test
