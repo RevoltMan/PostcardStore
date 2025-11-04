@@ -14,11 +14,11 @@ fun Postcard.toTransportCreatePostcard() = PostcardCreateObject(
     price = price,
 )
 
-fun Postcard.toTransportReadAd() = PostcardReadObject(
+fun Postcard.toTransportReadPostcard() = PostcardReadObject(
     id = id.toTransportPostcard()
 )
 
-fun Postcard.toTransportUpdateAd() = PostcardUpdateObject(
+fun Postcard.toTransportUpdatePostcard() = PostcardUpdateObject(
     id = id.toTransportPostcard(),
     title = title,
     author = author,
@@ -27,6 +27,6 @@ fun Postcard.toTransportUpdateAd() = PostcardUpdateObject(
 )
 
 
-fun Postcard.toTransportDeleteAd() = PostcardDeleteObject(
+fun Postcard.toTransportDeletePostcard() = PostcardDeleteObject(
     id = id.toTransportPostcard(),
 )
