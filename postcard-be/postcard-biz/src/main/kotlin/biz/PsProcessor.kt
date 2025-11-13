@@ -1,5 +1,15 @@
 package ru.otus.otuskotlin.postcardshop.biz
 
+import biz.repo.initRepo
+import biz.repo.prepareResult
+import biz.repo.repoCreate
+import biz.repo.repoDelete
+import biz.repo.repoPrepareCreate
+import biz.repo.repoPrepareDelete
+import biz.repo.repoPrepareUpdate
+import biz.repo.repoRead
+import biz.repo.repoSearch
+import biz.repo.repoUpdate
 import biz.validateAuthorsNotEmpty
 import biz.validateEventNotEmpty
 import biz.validateIdNotEmpty
@@ -13,25 +23,29 @@ import ru.otus.otuskotlin.postcardshop.biz.general.stubs
 import ru.otus.otuskotlin.postcardshop.common.PsContext
 import ru.otus.otuskotlin.postcardshop.common.PsCorSettings
 import ru.otus.otuskotlin.postcardshop.common.PsCorSettings.Companion.NONE
+import ru.otus.otuskotlin.postcardshop.common.cor.chain
 import ru.otus.otuskotlin.postcardshop.common.cor.rootChain
 import ru.otus.otuskotlin.postcardshop.common.cor.worker
 import ru.otus.otuskotlin.postcardshop.common.models.PostcardId
 import ru.otus.otuskotlin.postcardshop.common.models.PsCommand
 import ru.otus.otuskotlin.postcardshop.common.models.PsRequestId
+import ru.otus.otuskotlin.postcardshop.common.models.PsState
 import ru.otus.otuskotlin.postcardshop.common.models.PsState.RUNNING
 
 class PsProcessor(val corSettings: PsCorSettings = NONE) {
 
     suspend fun exec(ctx: PsContext) =
-        businessChain.exec( ctx.also {it.corSettings})
+        businessChain.exec( ctx.also {it.corSettings = corSettings})
 
     private val businessChain = rootChain<PsContext> {
         worker {
             title = "Инициализация статуса"
+            on { state == PsState.NONE }
             handle {
                 state = RUNNING
             }
         }
+        initRepo("Инициализация репозитория")
 
         operation("Создание открытку", PsCommand.CREATE) {
             stubs("Обработка заглушек") {
@@ -49,6 +63,12 @@ class PsProcessor(val corSettings: PsCorSettings = NONE) {
                 validateEventNotEmpty("Проверка, что событие не пусто")
                 validatePriceGreaterZero("Проверка, что сумма больше нуля")
             }
+            chain {
+                title = "Логика сохранения"
+                repoPrepareCreate("Подготовка объекта для сохранения")
+                repoCreate("Создание открытки в БД")
+            }
+            prepareResult("Подготовка ответа")
         }
 
         operation("Чтение открытки", PsCommand.READ) {
@@ -63,6 +83,17 @@ class PsProcessor(val corSettings: PsCorSettings = NONE) {
                 validateIdNotEmpty("Проверка на непустой id")
                 validateIdProperFormat("Проверка формата id")
             }
+
+            chain {
+                title = "Логика чтения"
+                repoRead("Чтение открытки из БД")
+                worker {
+                    title = "Подготовка ответа для Read"
+                    on { state == RUNNING }
+                    handle { repoPostcardDone = repoPostcardRead }
+                }
+            }
+            prepareResult("Подготовка ответа")
         }
 
         operation("Изменить открытку", PsCommand.UPDATE) {
@@ -85,6 +116,14 @@ class PsProcessor(val corSettings: PsCorSettings = NONE) {
                 validateEventNotEmpty("Проверка, что событие не пусто")
                 validatePriceGreaterZero("Проверка, что сумма больше нуля")
             }
+
+            chain {
+                title = "Логика сохранения"
+                repoRead("Чтение открытки из БД")
+                repoPrepareUpdate("Подготовка объекта для обновления")
+                repoUpdate("Обновление открытки в БД")
+            }
+            prepareResult("Подготовка ответа")
         }
 
         operation("Удалить открытку", PsCommand.DELETE) {
@@ -100,6 +139,14 @@ class PsProcessor(val corSettings: PsCorSettings = NONE) {
                 validateIdNotEmpty("Проверка на непустой id")
                 validateIdProperFormat("Проверка формата id")
             }
+
+            chain {
+                title = "Логика удаления"
+                repoRead("Чтение открытки из БД")
+                repoPrepareDelete("Подготовка объекта для удаления")
+                repoDelete("Удаление открытки из БД")
+            }
+            prepareResult("Подготовка ответа")
         }
 
         operation("Поиск открытки", PsCommand.SEARCH) {
@@ -112,6 +159,8 @@ class PsProcessor(val corSettings: PsCorSettings = NONE) {
             validation {
                 validateSearchStringLength("Валидация длины строки поиска в фильтре")
             }
+            repoSearch("Поиск открытки в БД по фильтру")
+            prepareResult("Подготовка ответа")
         }
 
     }.build()

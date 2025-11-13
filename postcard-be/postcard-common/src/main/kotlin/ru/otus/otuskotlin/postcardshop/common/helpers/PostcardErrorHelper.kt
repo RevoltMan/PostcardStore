@@ -18,9 +18,15 @@ fun Throwable.asPostcardError(
 )
 
 inline fun PsContext.addError(vararg error: PsError) = errors.addAll(error)
+inline fun PsContext.addErrors(error: Collection<PsError>) = errors.addAll(error)
 
 inline fun PsContext.fail(error: PsError) {
     addError(error)
+    state = PsState.FAILING
+}
+
+inline fun PsContext.fail(error: Collection<PsError>) {
+    addErrors(error)
     state = PsState.FAILING
 }
 
@@ -35,4 +41,16 @@ inline fun errorValidation(
     group = "validation",
     message = "Validation error for field $field: $description",
     level = level,
+)
+
+fun errorSystem(
+    violationCode: String,
+    level: LogLevel = LogLevel.ERROR,
+    th: Throwable,
+) = PsError(
+    code = "system-$violationCode",
+    group = "system",
+    message = "System error occurred. Our stuff has been informed, please retry later",
+    level = level,
+    exception = th,
 )

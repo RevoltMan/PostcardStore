@@ -101,7 +101,7 @@ private fun PostcardDeleteObject?.toInternal(): Postcard =
 
 fun PsContext.fromTransport(request: PostcardSearchRequest) {
     command = PsCommand.SEARCH
-    postcardFilterRequest = request.adFilter.toInternal()
+    postcardFilterRequest = request.postcardFilter.toInternal()
     workMode = request.debug.transportToWorkMode()
     stubCase = request.debug.transportToStubCase()
 }

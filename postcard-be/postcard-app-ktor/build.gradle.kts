@@ -28,6 +28,9 @@ dependencies {
     implementation(project(":postcard-be:postcard-api-v1-mapper"))
     implementation(project(":postcard-be:postcard-common"))
     implementation(project(":postcard-be:postcard-app-common"))
+    implementation(project(":postcard-be:postcard-repo-inmemory"))
+    implementation(project(":postcard-be:postcard-repo-common"))
+    implementation(project(":postcard-be:postcard-repo-stubs"))
     implementation(project(":postcard-be:postcard-biz"))
 
     testImplementation(libs.jUnit.api)

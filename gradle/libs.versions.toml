@@ -10,13 +10,12 @@ ktor = "3.2.3"
 logback = "1.5.3"
 
 [libraries]
-plugin-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
-plugin-binaryCompatibilityValidator = "org.jetbrains.kotlinx:binary-compatibility-validator:0.13.2"
 jackson-kotlin = { module = "com.fasterxml.jackson.module:jackson-module-kotlin", version.ref = "jackson" }
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }
 coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
 kotlinx-atomicfu = { module = "org.jetbrains.kotlinx:atomicfu", version = "0.23.2" }
+uuid = "com.benasher44:uuid:0.8.4"
 
 # ktor
 ktor-server-core = { module = "io.ktor:ktor-server-core", version.ref = "ktor" }
@@ -43,13 +42,15 @@ logback-appenders = { module = "com.sndyuk:logback-more-appenders", version = "1
 #kafka
 kafka-client = { module = "org.apache.kafka:kafka-clients", version = "3.7.0" }
 
+#Database
+db-cache4k = "io.github.reactivecircus.cache4k:cache4k:0.13.0"
+
+#Testing
 jUnit-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "jUnitJupiterVersion" }
 jUnit-engine = {module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "jUnitJupiterVersion" }
 jUnit-platform = {module = "org.junit.platform:junit-platform-launcher", version.ref = "junitPlatformLauncher" }
 
 [plugins]
-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
-openapi-generator = { id = "org.openapi.generator", version.ref = "openapi-generator" }
-ktor = { id = "io.ktor.plugin", version.ref = "ktor" }
+
 
 

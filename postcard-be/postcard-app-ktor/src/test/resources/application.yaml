@@ -8,3 +8,18 @@ ktor:
   application:
     #    Это важно для корректного тестирования
     modules: []
+
+postcardshop:
+  repository:
+    test: "$DB_TYPE_TEST:inmemory"
+    prod: "$DB_TYPE_PROD:inmemory"
+
+    psql:
+      schema: public
+      database: "$POSTSHOP_DB:postcardshop"
+      host: "$POSTSHOP_HOST:localhost"
+      port: "$POSTSHOP_PORT:5432"
+      user: "$POSTSHOP_USER:postgres"
+      password: "$POSTSHOP_PASS:postgres"
+
+aaa: inmemory2"

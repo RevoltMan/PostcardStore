@@ -1,15 +1,21 @@
 package ru.otus.otuskotlin.postcardshop.ktor.plugins
 
-import io.ktor.server.application.*
+import io.ktor.server.application.Application
 import ru.otus.otuskotlin.postcardshop.biz.PsProcessor
 import ru.otus.otuskotlin.postcardshop.common.PsCorSettings
 import ru.otus.otuskotlin.postcardshop.common.logging.PsLoggerProvider
 import ru.otus.otuskotlin.postcardshop.common.logging.psLoggerLogback
 import ru.otus.otuskotlin.postcardshop.ktor.PostcardAppSettingsImpl
+import ru.otus.otuskotlin.postcardshop.ktor.base.KtorWsSessionRepo
+import ru.otus.otuskotlin.postcardshop.repo.stub.PostcardRepoStub
 
 fun Application.initAppSettings(): PostcardAppSettingsImpl {
     val corSettings = PsCorSettings(
         loggerProvider = getLoggerProviderConf(),
+        wsSessions = KtorWsSessionRepo(),
+        repoTest = getDatabaseConf(PostcardDbType.TEST),
+        repoProd = getDatabaseConf(PostcardDbType.PROD),
+        repoStub = PostcardRepoStub(),
     )
     return PostcardAppSettingsImpl(
         appUrls = environment.config.propertyOrNull("ktor.urls")?.getList() ?: emptyList(),

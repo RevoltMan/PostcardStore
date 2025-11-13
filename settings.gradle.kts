@@ -19,3 +19,11 @@ include("postcard-be:postcard-app-common")
 findProject(":postcard-be:postcard-app-common")?.name = "postcard-app-common"
 include("postcard-be:postcard-app-kafka")
 findProject(":postcard-be:postcard-app-kafka")?.name = "postcard-app-kafka"
+include("postcard-be:postcard-repo-common")
+findProject(":postcard-be:postcard-repo-common")?.name = "postcard-repo-common"
+include("postcard-be:postcard-repo-stubs")
+findProject(":postcard-be:postcard-repo-stubs")?.name = "postcard-repo-stubs"
+include("postcard-be:postcard-repo-inmemory")
+findProject(":postcard-be:postcard-repo-inmemory")?.name = "postcard-repo-inmemory"
+include("postcard-be:postcard-repo-tests")
+findProject(":postcard-be:postcard-repo-tests")?.name = "postcard-repo-tests"
