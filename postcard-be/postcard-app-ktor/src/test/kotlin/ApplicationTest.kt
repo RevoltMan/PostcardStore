@@ -1,10 +1,10 @@
+package ru.otus.otuskotlin.postcardshop.ktor
 
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
 import io.ktor.server.testing.*
 import org.junit.jupiter.api.Test
-import ru.otus.otuskotlin.postcardshop.ktor.module
 import kotlin.test.assertEquals
 
 class ApplicationTest {

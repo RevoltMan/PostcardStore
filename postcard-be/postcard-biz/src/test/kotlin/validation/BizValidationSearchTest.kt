@@ -9,8 +9,10 @@ import ru.otus.otuskotlin.postcardshop.common.PsContext
 import ru.otus.otuskotlin.postcardshop.common.cor.rootChain
 import ru.otus.otuskotlin.postcardshop.common.models.PostcardFilter
 import ru.otus.otuskotlin.postcardshop.common.models.PsCommand
+import ru.otus.otuskotlin.postcardshop.common.models.PsState
 import ru.otus.otuskotlin.postcardshop.common.models.PsState.FAILING
 import ru.otus.otuskotlin.postcardshop.common.models.PsState.RUNNING
+import ru.otus.otuskotlin.postcardshop.common.models.PsWorkMode
 
 class BizValidationSearchTest: BaseBizValidationTest() {
     override val command = PsCommand.SEARCH
@@ -19,6 +21,9 @@ class BizValidationSearchTest: BaseBizValidationTest() {
     fun correctEmpty() = runTest {
         val ctx = PsContext(
             command = command,
+            state = PsState.NONE,
+            workMode = PsWorkMode.TEST,
+            postcardFilterRequest = PostcardFilter()
         )
         processor.exec(ctx)
         assertEquals(0, ctx.errors.size)
