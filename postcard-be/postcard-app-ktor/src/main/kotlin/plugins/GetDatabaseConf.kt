@@ -12,7 +12,6 @@ fun Application.getDatabaseConf(type: PostcardDbType): RepoPostcard {
     println ("путь $dbSettingPath")
     return when (val dbSetting = environment.config.propertyOrNull(dbSettingPath)?.getString()?.lowercase() ?: "inmemory") {
         "in-memory", "inmemory", "memory", "mem" -> initInMemory()
-//        "postgres", "postgresql", "pg", "sql", "psql" -> initPostgres()
         else -> throw IllegalArgumentException(
             "$dbSettingPath has value of '$dbSetting', but it must be set in application.yml to one of: " +
                     "'inmemory', 'postgres'"
@@ -20,19 +19,6 @@ fun Application.getDatabaseConf(type: PostcardDbType): RepoPostcard {
     }
 }
 
-//fun Application.initPostgres(): RepoPostcard {
-//    val config = PostgresConfig(environment.config)
-//    return RepoPostcardSql(
-//        properties = SqlProperties(
-//            host = config.host,
-//            port = config.port,
-//            user = config.user,
-//            password = config.password,
-//            schema = config.schema,
-//            database = config.database,
-//        ),
-//    )
-//}
 
 enum class PostcardDbType(val confName: String) {
     PROD("prod"), TEST("test")
