@@ -19,6 +19,7 @@ dependencies {
     implementation(libs.ktor.server.call.logging)
     implementation(libs.ktor.server.netty)
     implementation(libs.logback.classic)
+    implementation(libs.uuid)
     implementation(libs.ktor.server.config.yaml)
     implementation(libs.ktor.server.headers.response)
     implementation(libs.ktor.server.headers.caching)
@@ -29,12 +30,14 @@ dependencies {
     implementation(project(":postcard-be:postcard-common"))
     implementation(project(":postcard-be:postcard-app-common"))
     implementation(project(":postcard-be:postcard-repo-inmemory"))
+    implementation(project(":postcard-be:postcard-repo-postgress"))
     implementation(project(":postcard-be:postcard-repo-common"))
     implementation(project(":postcard-be:postcard-repo-stubs"))
     implementation(project(":postcard-be:postcard-biz"))
 
     testImplementation(libs.jUnit.api)
     testImplementation(libs.jUnit.engine)
+    testImplementation(kotlin("test-junit"))
     testImplementation(libs.jUnit.platform)
     testImplementation(libs.ktor.server.test.host)
 }

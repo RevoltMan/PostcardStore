@@ -21,7 +21,7 @@ import kotlin.test.assertNotEquals
 import kotlin.test.assertTrue
 
 class BizRepoTests {
-    private val uuid = "10000000-0000-0000-0000-000000000001"
+    private val uuid = "test-10000000-0000-0000-0000-000000000001"
     private val repo = PostcardRepositoryMock(
         invokeCreatePostcard = {
             DbPostcardResponseOk(

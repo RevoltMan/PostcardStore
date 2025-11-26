@@ -19,9 +19,6 @@ dependencies {
 
     api(kotlin("test-junit"))
     api(libs.coroutines.test)
-    testImplementation(libs.jUnit.api)
-    testImplementation(libs.jUnit.engine)
-    testImplementation(libs.jUnit.platform)
 }
 
 tasks {

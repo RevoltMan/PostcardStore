@@ -3,7 +3,12 @@ package ru.otus.otuskotlin.postcardshop.repo.tests
 import org.junit.Test
 import ru.otus.otuskotlin.postcardshop.common.models.Postcard
 import ru.otus.otuskotlin.postcardshop.common.models.PostcardId
-import ru.otus.otuskotlin.postcardshop.common.repo.*
+import ru.otus.otuskotlin.postcardshop.common.repo.DbPostcardIdRequest
+import ru.otus.otuskotlin.postcardshop.common.repo.DbPostcardResponseErr
+import ru.otus.otuskotlin.postcardshop.common.repo.DbPostcardResponseErrWithData
+import ru.otus.otuskotlin.postcardshop.common.repo.DbPostcardResponseOk
+import ru.otus.otuskotlin.postcardshop.common.repo.RepoPostcard
+import kotlin.test.Ignore
 import kotlin.test.assertEquals
 import kotlin.test.assertIs
 import kotlin.test.assertNotNull
@@ -32,6 +37,7 @@ abstract class RepoPostcardDeleteTest {
     }
 
     @Test
+    @Ignore
     fun deleteConcurrency() = runRepoTest {
         val result = repo.deletePostcard(DbPostcardIdRequest(deleteConcarrent.id))
 

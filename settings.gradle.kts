@@ -27,3 +27,5 @@ include("postcard-be:postcard-repo-inmemory")
 findProject(":postcard-be:postcard-repo-inmemory")?.name = "postcard-repo-inmemory"
 include("postcard-be:postcard-repo-tests")
 findProject(":postcard-be:postcard-repo-tests")?.name = "postcard-repo-tests"
+include("postcard-be:postcard-repo-postgress")
+findProject(":postcard-be:postcard-repo-postgress")?.name = "postcard-repo-postgress"

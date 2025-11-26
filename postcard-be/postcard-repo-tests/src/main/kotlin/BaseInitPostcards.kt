@@ -14,7 +14,7 @@ abstract class BaseInitPostcards(private val op: String): InitObjects<Postcard> 
         ownerId: PsUserId = PsUserId("owner"),
 
         ) = Postcard(
-        id = PostcardId("postcard-repo-$op-$suffix"),
+        id = PostcardId("test-postcard-repo-$op-$suffix"),
         title = "$suffix stub",
         author = setOf("$suffix stub author"),
         event = setOf("$suffix stub event"),

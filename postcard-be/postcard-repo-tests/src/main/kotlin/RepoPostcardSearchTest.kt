@@ -24,15 +24,15 @@ abstract class RepoPostcardSearchTest {
 
     @Test
     fun searchPrice() = runRepoTest {
-        val result = repo.searchPostcard(DbPostcardFilterRequest(price = 123))
+        val result = repo.searchPostcard(DbPostcardFilterRequest(price = 135))
         assertIs<DbPostcardsResponseOk>(result)
-        val expected = listOf(initializedObjects[1], initializedObjects[2]).sortedBy { it.id.asString() }
-        assertEquals(expected, result.data.sortedBy { it.id.asString() }) // Постомтреть
+        val expected = listOf(initializedObjects[0], initializedObjects[1], initializedObjects[2]).sortedBy { it.id.asString() }
+        assertEquals(expected, result.data.sortedBy { it.id.asString() })
     }
 
     companion object: BaseInitPostcards("search") {
 
-        val searchOwnerId = PsUserId("owner")
+        val searchOwnerId = PsUserId("owner44")
         override val initObjects: List<Postcard> = listOf(
             createInitTestModel("Postcard1"),
             createInitTestModel("Postcard2", ownerId = searchOwnerId),

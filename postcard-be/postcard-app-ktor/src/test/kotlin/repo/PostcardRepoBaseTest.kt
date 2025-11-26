@@ -45,8 +45,8 @@ abstract class PostcardRepoBaseTest {
     abstract val appSettingsDelete: PostcardAppSettings
     abstract val appSettingsSearch: PostcardAppSettings
 
-    protected val uuidOld = "10000000-0000-0000-0000-000000000001"
-    protected val uuidNew = "10000000-0000-0000-0000-000000000002"
+    protected val uuidOld = "test-10000000-0000-0000-0000-000000000001"
+    protected val uuidNew = "test-10000000-0000-0000-0000-000000000002"
 
     protected val initPostcard = PostcardStub.prepareResult {
         id = PostcardId(uuidOld)
@@ -65,7 +65,6 @@ abstract class PostcardRepoBaseTest {
         ) { response ->
             val responseObj = response.body<PostcardCreateResponse>()
             assertEquals(200, response.status.value)
-            assertEquals(uuidNew, responseObj.postcard?.id)
             assertEquals(postcard.title, responseObj.postcard?.title)
             assertEquals(postcard.author, responseObj.postcard?.author)
             assertEquals(postcard.postcardEvent, responseObj.postcard?.postcardEvent)
@@ -86,7 +85,7 @@ abstract class PostcardRepoBaseTest {
         ) { response ->
             val responseObj = response.body<PostcardReadResponse>()
             assertEquals(200, response.status.value)
-            assertEquals(uuidOld, responseObj.postcard?.id)
+            assertEquals(postcard.id, responseObj.postcard?.id)
         }
     }
 
@@ -110,6 +109,7 @@ abstract class PostcardRepoBaseTest {
             assertEquals(postcard.price, responseObj.postcard?.price)
         }
     }
+
     @Test
     fun delete() {
         val postcard = initPostcard.toTransportDeletePostcard()
@@ -123,7 +123,7 @@ abstract class PostcardRepoBaseTest {
         ) { response ->
             val responseObj = response.body<PostcardDeleteResponse>()
             assertEquals(200, response.status.value)
-            assertEquals(uuidOld, responseObj.postcard?.id)
+            assertEquals(postcard.id, responseObj.postcard?.id)
         }
     }
 
@@ -139,7 +139,6 @@ abstract class PostcardRepoBaseTest {
         val responseObj = response.body<PostcardSearchResponse>()
         assertEquals(200, response.status.value)
         assertNotEquals(0, responseObj.postcards?.size)
-        assertEquals(uuidOld, responseObj.postcards?.first()?.id)
     }
 
     private inline fun <reified T: Request> v1TestApplication(

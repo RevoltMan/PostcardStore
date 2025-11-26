@@ -8,6 +8,11 @@ jUnitJupiterVersion = "5.13.4"
 junitPlatformLauncher = "1.9.1"
 ktor = "3.2.3"
 logback = "1.5.3"
+liquibase = "4.27.0"
+exposed = "0.50.0"
+
+#Testing
+testcontainers = "1.21.1"
 
 [libraries]
 jackson-kotlin = { module = "com.fasterxml.jackson.module:jackson-module-kotlin", version.ref = "jackson" }
@@ -44,6 +49,17 @@ kafka-client = { module = "org.apache.kafka:kafka-clients", version = "3.7.0" }
 
 #Database
 db-cache4k = "io.github.reactivecircus.cache4k:cache4k:0.13.0"
+db-postgres = "org.postgresql:postgresql:42.7.3"
+db-exposed-core = { module = "org.jetbrains.exposed:exposed-core", version.ref = "exposed" }
+db-exposed-dao = { module = "org.jetbrains.exposed:exposed-dao", version.ref = "exposed" }
+db-exposed-jdbc = { module = "org.jetbrains.exposed:exposed-jdbc", version.ref = "exposed" }
+testcontainers-core = { module = "org.testcontainers:testcontainers", version.ref = "testcontainers" }
+testcontainers-postgres = { module = "org.testcontainers:postgresql", version.ref = "testcontainers" }
+
+# Liquidbase
+liquibase-core = {module = "org.liquibase:liquibase-core", version.ref = "liquibase"}
+liquibase-picocli = "info.picocli:picocli:4.7.5"
+liquibase-snakeyml = "org.yaml:snakeyaml:1.33"
 
 #Testing
 jUnit-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "jUnitJupiterVersion" }
@@ -52,5 +68,6 @@ jUnit-platform = {module = "org.junit.platform:junit-platform-launcher", version
 
 [plugins]
 
-
+[bundles]
+exposed = ["db-exposed-core", "db-exposed-dao", "db-exposed-jdbc"]
 

@@ -2,8 +2,11 @@ package ru.otus.otuskotlin.postcardshop.ktor.plugins
 
 import io.ktor.server.application.Application
 import ru.otus.otuskotlin.postcardshop.common.repo.RepoPostcard
+import ru.otus.otuskotlin.postcardshop.ktor.base.PostgresConfig
 import ru.otus.otuskotlin.postcardshop.ktor.config.ConfigPaths
 import ru.otus.otuskotlin.postcardshop.repo.inmemory.PostcardRepoInMemory
+import ru.otus.otuskotlin.postcardshop.repo.pg.RepoPostcardSql
+import ru.otus.otuskotlin.postcardshop.repo.pg.SqlProperties
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.minutes
 
@@ -12,6 +15,7 @@ fun Application.getDatabaseConf(type: PostcardDbType): RepoPostcard {
     println ("путь $dbSettingPath")
     return when (val dbSetting = environment.config.propertyOrNull(dbSettingPath)?.getString()?.lowercase() ?: "inmemory") {
         "in-memory", "inmemory", "memory", "mem" -> initInMemory()
+        "postgres", "postgresql", "pg", "sql", "psql" -> initPostgres()
         else -> throw IllegalArgumentException(
             "$dbSettingPath has value of '$dbSetting', but it must be set in application.yml to one of: " +
                     "'inmemory', 'postgres'"
@@ -29,4 +33,18 @@ fun Application.initInMemory(): RepoPostcard {
         Duration.parse(it)
     }
     return PostcardRepoInMemory(ttl = ttlSetting ?: 10.minutes)
+}
+
+fun Application.initPostgres(): RepoPostcard {
+    val config = PostgresConfig(environment.config)
+    return RepoPostcardSql(
+        properties = SqlProperties(
+            host = config.host,
+            port = config.port,
+            user = config.user,
+            password = config.password,
+            schema = config.schema,
+            database = config.database,
+        ),
+    )
 }
