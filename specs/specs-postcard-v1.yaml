@@ -294,7 +294,7 @@ components:
         - $ref: '#/components/schemas/PostcardRequestDebug'
         - type: object
           properties:
-            adFilter:
+            postcardFilter:
               $ref: '#/components/schemas/postcardSearchFilter'
 
     PostcardResponseObject:

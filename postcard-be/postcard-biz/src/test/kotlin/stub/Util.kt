@@ -10,10 +10,10 @@ import ru.otus.otuskotlin.postcardshop.common.stubs.PsStubs
 
 internal fun initPostcard() =
     Postcard(
-        id = PostcardId("Барабашка"),
+        id = PostcardId("123-456-7890"),
         title = "Hello World",
         author = setOf("Васнецова"),
-        event = setOf("годовщина"),
+        event = setOf("Годовщина"),
         price = 100,
     )
 

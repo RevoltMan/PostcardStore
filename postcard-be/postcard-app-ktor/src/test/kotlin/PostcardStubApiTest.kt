@@ -1,3 +1,4 @@
+package ru.otus.otuskotlin.postcardshop.ktor
 
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.SerializationFeature
@@ -29,8 +30,6 @@ import ru.otus.otuskotlin.postcardshop.api.v1.models.PostcardUpdateRequest
 import ru.otus.otuskotlin.postcardshop.api.v1.models.PostcardUpdateResponse
 import ru.otus.otuskotlin.postcardshop.api.v1.models.Request
 import ru.otus.otuskotlin.postcardshop.common.PsCorSettings
-import ru.otus.otuskotlin.postcardshop.ktor.PostcardAppSettingsImpl
-import ru.otus.otuskotlin.postcardshop.ktor.module
 import kotlin.test.assertEquals
 
 class PostcardStubApiTest {
@@ -108,7 +107,7 @@ class PostcardStubApiTest {
     fun `success  search`() = testApplication(
         func = "postcard/search",
         request = PostcardSearchRequest(
-            adFilter = PostcardSearchFilter(),
+            postcardFilter = PostcardSearchFilter(),
             debug = successDebug
         ),
     ) { response ->

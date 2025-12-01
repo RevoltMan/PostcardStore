@@ -8,6 +8,7 @@ import ru.otus.otuskotlin.postcardshop.common.models.PsError
 import ru.otus.otuskotlin.postcardshop.common.models.PsRequestId
 import ru.otus.otuskotlin.postcardshop.common.models.PsState
 import ru.otus.otuskotlin.postcardshop.common.models.PsWorkMode
+import ru.otus.otuskotlin.postcardshop.common.repo.RepoPostcard
 
 import ru.otus.otuskotlin.postcardshop.common.stubs.PsStubs
 
@@ -27,4 +28,9 @@ data class PsContext(
     var postcardResponse: Postcard = Postcard(),
     var postcardsResponse: MutableList<Postcard> = mutableListOf(),
     var corSettings: PsCorSettings = PsCorSettings(),
+
+    var repoPostcard: RepoPostcard = RepoPostcard.NONE,
+    var repoPostcardRead: Postcard = Postcard(),
+    var repoPostcardDone: Postcard = Postcard(),
+    var repoPostcardsDone: MutableList<Postcard> = mutableListOf(),
 )

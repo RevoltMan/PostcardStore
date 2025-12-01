@@ -12,7 +12,7 @@ import ru.otus.otuskotlin.postcardshop.common.models.PsState.FAILING
 fun validationIdCorrect(command: PsCommand, processor: PsProcessor) = runTest {
     val ctx = makeTestContext(
         command = command,
-        id = PostcardId("123"),
+        id = PostcardId("ZXY-873"),
     )
     processor.exec(ctx)
     assertEquals(0, ctx.errors.size)
@@ -22,7 +22,7 @@ fun validationIdCorrect(command: PsCommand, processor: PsProcessor) = runTest {
 fun validationIdTrim(command: PsCommand, processor: PsProcessor) = runTest {
     val ctx = makeTestContext(
         command = command,
-        id = PostcardId(" \n\t 234 \n\t "),
+        id = PostcardId(" \n\t ZXY-873 \n\t "),
     )
     processor.exec(ctx)
     assertEquals(0, ctx.errors.size)
